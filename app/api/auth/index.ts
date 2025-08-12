@@ -15,13 +15,18 @@ export const sendVerifyEmail = async (email: string) => {
 export const SEND_VERIFY_EMAIL_KEY = "sendVerifyEmail";
 
 export const getUser = async () => {
-	return await fetch(`${ORIGIN}/users/me`, {
-		method: "GET",
-		credentials: "include",
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
+	try {
+		return await fetch(`${ORIGIN}/users/me`, {
+			method: "GET",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		return { status: 500 };
+	}
 };
 
 export const verifyEmail = async (token: string) => {
@@ -49,4 +54,3 @@ export const logout = async () => {
 		},
 	});
 };
-
