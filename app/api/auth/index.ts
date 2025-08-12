@@ -30,18 +30,23 @@ export const getUser = async () => {
 };
 
 export const verifyEmail = async (token: string) => {
-	const response = await fetch(`${ORIGIN}/auth/verify-email`, {
-		method: "POST",
-		credentials: "include",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			token: token,
-		}),
-	});
+	try {
+		const response = await fetch(`${ORIGIN}/auth/verify-email`, {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				token: token,
+			}),
+		});
 
-	return response;
+		return response;
+	} catch (error) {
+		console.error(error);
+		return { status: 500 };
+	}
 };
 export const VERIFY_EMAIL_KEY = "verifyEmail";
 
